@@ -18,7 +18,6 @@ from schemas import (
     ProductReviewUpdate,
 )
 
-
 class CRUDProduct(CRUDBase[Product, ProductCreate, ProductUpdate]):
 
     def get_all_products_public(

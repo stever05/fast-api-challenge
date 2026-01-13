@@ -52,6 +52,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             raise MissingResources("Item with ID doesn't exist")
         return query_result
 
+    def get_by_auth_email(self, email: str) -> Optional[ModelType]:
+        return True
+        
     async def create(self, data_obj: Union[CreateSchemaType, dict]) -> ModelType:
         if isinstance(data_obj, dict):
             rsp_result = self.model(**data_obj)
@@ -111,3 +114,5 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         datas = self._db.bulk_save_objects(data_list)
         self._db.commit()
         return datas
+
+get_by_auth_email()

