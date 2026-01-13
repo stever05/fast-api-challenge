@@ -1,151 +1,150 @@
-# FastAPI Product CRUD 시험
+# FastAPI Product CRUD Exam
 
-## 📌 시험 방법
+## 📌 Exam Instructions
 
-### 시험 목표
-FastAPI를 사용한 이커머스 상품 CRUD(Create, Read, Update, Delete) 기능 완전 구현
+### Exam Goal
+Complete implementation of E-commerce Product CRUD (Create, Read, Update, Delete) functionality using FastAPI
 
-### 시험 시간
-약 4시간
+### Exam Duration
+Approximately 4 hours
 
-### 진행 절차
-1. **환경 설정** (10분)
-2. **CRUD 계층 구현** (60분)
-3. **Service 계층 구현** (60분)
-4. **API 엔드포인트 구현** (60분)
-5. **테스트 작성 및 검증** (30분)
-
----
-
-## 🎯 해결해야 할 문제 (총 18개)
-
-### 1️⃣ CRUD 계층 (5개 메서드) - `crud/product.py`
-
-| # | 메서드 | 기능 | 난이도 |
-|---|--------|------|--------|
-| 1 | `get_all_products_public()` | 공개 상품 조회 + 검색 + 페이지네이션 | ⭐⭐ |
-| 2 | `get_products_for_vendor()` | 판매자별 상품 조회 | ⭐⭐ |
-| 3 | `sort_product_by_price()` | 가격순 상품 정렬 | ⭐ |
-| 4 | `get_active_products()` | 활성 상품 조회 (ID로) | ⭐ |
-| 5 | `get_single_product_by_id()` | 상세 정보 포함 조회 (N+1 해결) | ⭐⭐⭐ |
-
-**핵심 요구사항:**
-- SQLAlchemy ORM 쿼리 사용
-- `get_single_product_by_id()`는 joinedload 사용하여 N+1 문제 해결
-- 페이지네이션 구현 (skip, limit)
-- 검색 필터 지원
+### Procedure
+1. **Environment Setup** (10 minutes)
+2. **CRUD Layer Implementation** (60 minutes)
+3. **Service Layer Implementation** (60 minutes)
+4. **API Endpoint Implementation** (60 minutes)
+5. **Test Writing and Validation** (30 minutes)
 
 ---
 
-### 2️⃣ Service 계층 (6개 메서드) - `services/product_service.py`
+## 🎯 Problems to Solve (Total 18)
 
-| # | 메서드 | 기능 | 난이도 |
-|---|--------|------|--------|
-| 1 | `get_product_categories()` | 모든 카테고리 조회 | ⭐ |
-| 2 | `create_product()` | 상품 생성 (SKU, 이미지, 카테고리) | ⭐⭐⭐ |
-| 3 | `get_products_customer()` | 고객용 상품 조회 | ⭐ |
-| 4 | `get_products_vendor()` | 판매자 상품 조회 | ⭐ |
-| 5 | `update_product()` | 상품 수정 (소유권 확인) | ⭐⭐ |
-| 6 | `delete_product()` | 상품 삭제 (소유권 확인) | ⭐⭐ |
+### 1️⃣ CRUD Layer (5 Methods) - `crud/product.py`
 
-**핵심 요구사항:**
-- async/await 사용
-- CRUD 계층 메서드 호출
-- 비즈니스 로직 구현 (SKU 자동 생성, 카테고리 생성)
-- 에러 처리 (MissingResource, InvalidRequest)
-- 소유권 확인 (수정/삭제 시)
+| # | Method | Functionality | Difficulty |
+|---|--------|---------------|------------|
+| 1 | `get_all_products_public()` | Retrieve public products + search + pagination | ⭐⭐ |
+| 2 | `get_products_for_vendor()` | Retrieve products by vendor | ⭐⭐ |
+| 3 | `sort_product_by_price()` | Sort products by price | ⭐ |
+| 4 | `get_active_products()` | Retrieve active products (by ID) | ⭐ |
+| 5 | `get_single_product_by_id()` | Retrieve detailed product info (N+1 solved) | ⭐⭐⭐ |
 
----
-
-### 3️⃣ API 엔드포인트 (7개) - `api/endpoints/product.py`
-
-| HTTP | 경로 | 설명 | 난이도 |
-|------|------|------|--------|
-| POST | `/products` | 상품 생성 | ⭐⭐ |
-| GET | `/products` | 공개 상품 조회 (검색+페이징) | ⭐⭐ |
-| GET | `/products/me` | 판매자 상품 조회 | ⭐⭐ |
-| GET | `/products/price` | 가격순 정렬 | ⭐ |
-| GET | `/products/{id}` | 단일 상품 조회 | ⭐ |
-| PUT | `/products/{id}` | 상품 수정 | ⭐⭐ |
-| DELETE | `/products/{id}` | 상품 삭제 | ⭐⭐ |
-
-**핵심 요구사항:**
-- FastAPI 라우터 사용
-- 의존성 주입 (Depends)
-- 올바른 HTTP 상태 코드 (201, 200, 204, 404, 403)
-- response_model 지정
-- 인증 필수
+**Key Requirements:**
+- Use SQLAlchemy ORM queries
+- `get_single_product_by_id()` must use joinedload to solve N+1 problem
+- Implement pagination (skip, limit)
+- Support search filters
 
 ---
 
-## 🔧 기본 개발 흐름
+### 2️⃣ Service Layer (6 Methods) - `services/product_service.py`
+
+| # | Method | Functionality | Difficulty |
+|---|--------|---------------|------------|
+| 1 | `get_product_categories()` | Retrieve all categories | ⭐ |
+| 2 | `create_product()` | Create product (SKU, images, categories) | ⭐⭐⭐ |
+| 3 | `get_products_customer()` | Retrieve products for customers | ⭐ |
+| 4 | `get_products_vendor()` | Retrieve vendor products | ⭐ |
+| 5 | `update_product()` | Update product (verify ownership) | ⭐⭐ |
+| 6 | `delete_product()` | Delete product (verify ownership) | ⭐⭐ |
+
+**Key Requirements:**
+- Use async/await
+- Call CRUD layer methods
+- Implement business logic (auto SKU generation, category creation)
+- Handle errors (MissingResource, InvalidRequest)
+- Verify ownership (for update/delete)
+
+---
+
+### 3️⃣ API Endpoints (7 Total) - `api/endpoints/product.py`
+
+| HTTP | Path | Description | Difficulty |
+|------|------|-------------|------------|
+| POST | `/products` | Create product | ⭐⭐ |
+| GET | `/products` | Retrieve public products (search+pagination) | ⭐⭐ |
+| GET | `/products/me` | Retrieve vendor products | ⭐⭐ |
+| GET | `/products/price` | Sort by price | ⭐ |
+| GET | `/products/{id}` | Retrieve single product | ⭐ |
+| PUT | `/products/{id}` | Update product | ⭐⭐ |
+| DELETE | `/products/{id}` | Delete product | ⭐⭐ |
+
+**Key Requirements:**
+- Use FastAPI router
+- Dependency injection (Depends)
+- Correct HTTP status codes (201, 200, 204, 404, 403)
+- Specify response_model
+- Authentication required
+
+---
+
+## 🔧 Development Flow
 
 ```
-HTTP 요청 
+HTTP Request 
   ↓
-API 엔드포인트 (api/endpoints/product.py)
+API Endpoints (api/endpoints/product.py)
   ↓
-Service 비즈니스 로직 (services/product_service.py)
+Service Business Logic (services/product_service.py)
   ↓
-CRUD 데이터베이스 작업 (crud/product.py)
+CRUD Database Operations (crud/product.py)
   ↓
-데이터베이스 (PostgreSQL)
+Database (PostgreSQL)
 ```
 
 ---
 
-## 🚀 빠른 시작
+## 🚀 Quick Start
 
 ```bash
-# 1. 의존성 설치
+# 1. Install dependencies
 poetry install
 
-# 2. 데이터베이스 마이그레이션
+# 2. Run database migrations
 poetry run alembic upgrade head
 
-# 3. 서버 실행
+# 3. Start the server
 poetry run uvicorn main:app --reload
 
-# 4. 테스트 실행
+# 4. Run tests
 poetry run pytest tests/endpoints/test_product.py -v
 
-# 5. API 문서 확인
+# 5. Check API documentation
 # http://localhost:8000/docs (Swagger UI)
 # http://localhost:8000/redoc (ReDoc)
 ```
 
 ---
 
-## 📚 참고 파일 구조
+## 📚 Reference File Structure
 
 ```
-models/product.py           # Product, ProductCategory, ProductImage 모델
-schemas/product.py          # ProductCreate, ProductUpdate, ProductReturn 스키마
-crud/product.py             # ✅ 구현 필요
-services/product_service.py # ✅ 구현 필요
-api/endpoints/product.py    # ✅ 구현 필요
-tests/endpoints/test_product.py # 테스트 케이스 참고
+models/product.py           # Product, ProductCategory, ProductImage models
+schemas/product.py          # ProductCreate, ProductUpdate, ProductReturn schemas
+crud/product.py             # ✅ Implementation needed
+services/product_service.py # ✅ Implementation needed
+api/endpoints/product.py    # ✅ Implementation needed
+tests/endpoints/test_product.py # Reference test cases
 ```
 
 ---
 
-## ✅ 평가 기준
+## ✅ Evaluation Criteria
 
-| 항목 | 배점 | 요구사항 |
-|------|------|---------|
-| CRUD 계층 | 25점 | 5개 메서드 모두 정상 작동 |
-| Service 계층 | 30점 | 6개 메서드 모두 정상 작동 + 비즈니스 로직 |
-| API 엔드포인트 | 30점 | 7개 엔드포인트 모두 정상 작동 |
-| 테스트 | 15점 | 테스트 케이스 통과율 80% 이상 |
-| **합계** | **100점** | - |
+| Category | Points | Requirements |
+|----------|--------|--------------|
+| CRUD Layer | 25 | All 5 methods working correctly |
+| Service Layer | 30 | All 6 methods working correctly + business logic |
+| API Endpoints | 30 | All 7 endpoints working correctly |
+| Tests | 15 | Test case pass rate 80% or higher |
+| **Total** | **100** | - |
 
 ---
 
-## 💡 주의사항
+## 💡 Important Notes
 
-1. **N+1 문제**: `get_single_product_by_id()`에서 반드시 joinedload 사용
-2. **소유권 확인**: 수정/삭제 시 판매자 검증 필수
-3. **에러 처리**: 적절한 예외 발생 (404, 403, 400)
-4. **페이지네이션**: skip, limit 파라미터 사용
-5. **비동기**: Service 계층은 모두 async/await 사용
-
+1. **N+1 Problem**: Must use joinedload in `get_single_product_by_id()`
+2. **Ownership Verification**: Vendor verification required for update/delete
+3. **Error Handling**: Raise appropriate exceptions (404, 403, 400)
+4. **Pagination**: Use skip and limit parameters
+5. **Async**: Service layer must use async/await
